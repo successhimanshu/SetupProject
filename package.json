@@ -1,0 +1,12 @@
+{
+  "name": "setup-project",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "concurrently \"npm run start-backend\" \"npm run start-frontend\"",
+    "start-backend": "cd Backend && npm start",
+    "start-frontend": "cd Frontend && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
