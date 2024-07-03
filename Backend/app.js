@@ -17,6 +17,7 @@ app.get("/Himanshu",(req,res)=>{
 })
 app.post('/register',dbuser.createUser)
 app.get('/getuser',dbuser.getUser)
+app.get('/getrolemaster',dbuser.getRoleMaster)
 app.post('/getUserById/:id',dbuser.getUserById)
 app.put('/updateUserName/:id',dbuser.updateUserName)
 app.delete('/deleteUser/:id',dbuser.deleteUser)
