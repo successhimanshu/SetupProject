@@ -38,6 +38,18 @@ const getUser=(req,res)=>{
         })
     })
 }
+const getRoleMaster=(req,res)=>{
+    pool.query('SELECT * FROM fn_getrolemaster()', (err,result)=>{
+        if(err){
+            throw err;
+        }
+        res.json({
+            rescode:1000,
+            meaasge: "Records Fetched Successfully",
+            data:result.rows
+        })
+    })
+}
 const getUserById=(req,res)=>{
     const id=parseInt(req.params.id);
     pool.query('select * from users where id=$1',[id], (err,result)=>{
@@ -109,5 +121,5 @@ const deleteUser=(req,res)=>{
     })
 }
 module.exports ={
-    createUser,getUser,getUserById,updateUserName,deleteUser,loginUser
+    createUser,getUser,getUserById,updateUserName,deleteUser,loginUser,getRoleMaster
 }
