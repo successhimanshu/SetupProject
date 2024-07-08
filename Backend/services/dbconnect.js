@@ -64,37 +64,38 @@ const getUserById=(req,res)=>{
 }
 
 const loginUser=(req,res)=>{
-    const {username,password} = req.body
-    pool.query('SELECT * FROM fn_loginUser($1, $2)',[username,password], (err,result)=>{
+    const {username,password,role_id} = req.body
+    pool.query('SELECT * FROM fn_loginuser($1, $2, $3)',[username,password,role_id], (err,result)=>{
       // Assuming this is part of your login endpoint handling
-if (result.rows[0].fn_loginuser.id > 0) {
-    // Assuming your check for correct password happens here
-    if (result.rows[0].fn_loginuser.password === req.body.password) {
-      // Successful login
-      res.status(200).json({
-        rescode: 1000,
-        message: "User Exist",
-        data: result.rows[0].fn_loginuser
-      });
-    } else {
-      // Incorrect password
-      res.status(200).json({
-        rescode: 1001,
-        message: "Invalid password",
-        data: []
-      });
-    }
-  } else {
-    // No user found
-    res.status(200).json({
-      rescode: 1001,
-      message: "User does not Exist",
-      data: []
-    });
-  }
-  
+      if (err){
+        console.log(err);
+        res.status(200).json({
+            rescode: 1001,
+            message: "User does not Exist",
+            data: []
+          });
 
-       
+      }
+      
+      else if (result.rows[0].fn_loginuser.id > 0) {
+        // Assuming your check for correct password happens here
+        if (result.rows[0].fn_loginuser.password === req.body.password) {
+          // Successful login
+          res.status(200).json({
+            rescode: 1000,
+            message: "User Exist",
+            data: result.rows[0].fn_loginuser
+          });
+        } 
+        else {
+          // Incorrect password
+          res.status(200).json({
+            rescode: 1001,
+            message: "Invalid password",
+            data: []
+          });
+        }
+      } 
     })
 }
 const updateUserName=(req,res)=>{

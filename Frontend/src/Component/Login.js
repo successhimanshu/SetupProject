@@ -51,7 +51,7 @@ const Login = () => {
       const response = await axios.post(apiUrl, {
         username,
         password,
-        role_id: role,
+        role_id: parseInt(role),
       });
       const data = response.data;
 
@@ -63,7 +63,19 @@ const Login = () => {
         setError('');
         setSuccessMessage('Login successful!');
         toast.success('User Loggedin Successfully!');
-        setTimeout(() => navigate('/dashboard'), 1500); // Redirect to the dashboard page
+        setTimeout(() =>{
+          if (parseInt(role) ===1) {
+            navigate('/admin-dashboard');
+          } else if (parseInt(role) ===2) {
+            navigate('/superadmin-dashboard');
+          } else if (parseInt(role) ===3) {
+            navigate('/dashboard');
+          } 
+          else {
+            // Handle invalid roles or other cases
+            navigate('/');
+          }
+        },1500); // Redirect to the dashboard page
       } else if (data.rescode === 1001) {
         throw new Error(data.message || 'Invalid credentials');
       } else {

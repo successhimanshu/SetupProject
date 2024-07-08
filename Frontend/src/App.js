@@ -10,6 +10,8 @@ import Product from './Component/Product';
 import Customer from './Component/Customer';
 import Report from './Component/Report';
 import Navbar from './Component/Navbar';
+import AdminDashboard from './Component/AdminDashboard';
+import SuperadminDashboard from './Component/SuperadminDashboard';
 
 function App() {
   return (
@@ -36,7 +38,8 @@ function App() {
             <Navbar />
             <Report />
           </>} />
-          {/* End of Routes with Navbar */}
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
+          <Route path="/superadmin-dashboard" element={<SuperadminDashboard />} />
         </Routes>
       </div>
     </Router>
